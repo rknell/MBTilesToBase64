@@ -31,8 +31,6 @@ function each() {
   actions.push(eachPromise.promise);
 
   return q.all(actions);
-
-  // return q.promise;
 }
 
 function dbRun(db, query, params) {
@@ -41,7 +39,7 @@ function dbRun(db, query, params) {
   db.run(query,params,function (err, response) {
     console.log("Running query", query, params);
     if(err)
-      deferred.reject(err)
+      deferred.reject(err);
     else
       deferred.resolve(response);
   });
@@ -49,27 +47,6 @@ function dbRun(db, query, params) {
   return deferred.promise;
 
 }
-
-
-
-// db.serialize(function () {
-//   db.run("DROP TABLE IF EXISTS tiles64");
-//   db.run("CREATE TABLE tiles64 (zoom_level INT, tile_column INT, tile_row INT, tile_data TEXT)", function () {
-//     db.each("SELECT * FROM tiles", function (err, row) {
-//
-//     });
-//   });
-//
-//
-//
-//   // var stmt = db.prepare("INSERT INTO lorem VALUES (?)");
-//   // for (var i = 0; i < 10; i++) {
-//   //   stmt.run("Ipsum " + i);
-//   // }
-//   // stmt.finalize();
-//   //
-//
-// });
 
 function go() {
   dbRun(db,"DROP TABLE IF EXISTS tiles64")
